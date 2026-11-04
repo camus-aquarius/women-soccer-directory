@@ -10,13 +10,9 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from urllib.parse import urljoin
 from zoneinfo import ZoneInfo
-from io import StringIO
 
 import pandas as pd
 import requests
-
-import re
-from urllib.parse import urljoin
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "matches.json"
@@ -26,8 +22,8 @@ HORIZON = TODAY + timedelta(days=120)
 HEADERS = {"User-Agent": "WomensFootballGuideScheduleBot/1.0 (fixture schedule; contact via repository issues)"}
 WE_URL = "https://data.weleague.jp/SFMS01/search?competition_frame_ids=70&competition_ids=734&competition_years=2026"
 NADESHIKO_URLS = [
-    ("なでしこリーグ1部","https://www.nadeshikoleague.jp/2026/nadeshiko1/"),
-    ("なでしこリーグ2部","https://www.nadeshikoleague.jp/2026/nadeshiko2/"),
+    ("なでしこリーグ1部", "https://www.nadeshikoleague.jp/2026/info_nadeshiko1.html"),
+    ("なでしこリーグ2部", "https://www.nadeshikoleague.jp/2026/info_nadeshiko2.html"),
 ]
 
 TEAM_NAMES = {
@@ -97,24 +93,41 @@ def split_teams(value: str):
 def records_from_tables(url: str, league: str, we_mode: bool):
     response = requests.get(url, headers=HEADERS, timeout=30)
     response.raise_for_status()
+    response.encoding = "utf-8" if "nadeshikoleague.jp" in url else (response.apparent_encoding or response.encoding)
 
-    # なでしこリーグのページはUTF-8として読み込む
-    response.encoding = "utf-8"
-    html = response.text
-    
-    print(f"DEBUG URL: {response.url}")
-    print(f"DEBUG HTTP: {response.status_code}")
-    print(f"DEBUG HTML length: {len(response.text)}")
-    print(f"DEBUG HTML preview: {response.text[:1000]}")
+    # Diagnostic output for the Nadeshiko pages: identify where schedule data may load from.
+    if not we_mode:
+        html = response.text
+        print(f"DEBUG LEAGUE: {league}")
+        print(f"DEBUG URL: {response.url}")
+        print(f"DEBUG HTTP: {response.status_code}")
+        print(f"DEBUG HTML length: {len(html)}")
 
-    # JavaScriptファイルの読み込み先を調べる
-    scripts = re.findall(
-    r'<script[^>]+src=["\']([^"\']+)',
-    html,
-    flags=re.IGNORECASE)
-    
-    response.encoding = response.apparent_encoding or response.encoding
-    tables = pd.read_html(StringIO(response.text))
+        script_urls = re.findall(
+            r'<script\\b[^>]*?\\bsrc=[\\\'"]([^\\\'"]+)',
+            html,
+            flags=re.IGNORECASE,
+        )
+        iframe_urls = re.findall(
+            r'<iframe\\b[^>]*?\\bsrc=[\\\'"]([^\\\'"]+)',
+            html,
+            flags=re.IGNORECASE,
+        )
+        print("DEBUG SCRIPT FILES:")
+        for item in script_urls:
+            print(" ", urljoin(response.url, item))
+        print("DEBUG IFRAMES:")
+        for item in iframe_urls:
+            print(" ", urljoin(response.url, item))
+
+        for keyword in ("match", "schedule", "json", "api", "日程"):
+            hits = list(re.finditer(keyword, html, flags=re.IGNORECASE))
+            print(f"DEBUG KEYWORD {keyword}: {len(hits)}")
+            for hit in hits[:2]:
+                snippet = re.sub(r"\\s+", " ", html[max(0, hit.start()-100):hit.start()+180])
+                print("  ", snippet)
+
+    tables = pd.read_html(response.text)
     records = []
     for table in tables:
         cols = [text(c) for c in table.columns]
