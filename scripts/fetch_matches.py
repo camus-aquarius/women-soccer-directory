@@ -10,6 +10,7 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from urllib.parse import urljoin
 from zoneinfo import ZoneInfo
+from io import StringIO
 
 import pandas as pd
 import requests
@@ -22,8 +23,8 @@ HORIZON = TODAY + timedelta(days=120)
 HEADERS = {"User-Agent": "WomensFootballGuideScheduleBot/1.0 (fixture schedule; contact via repository issues)"}
 WE_URL = "https://data.weleague.jp/SFMS01/search?competition_frame_ids=70&competition_ids=734&competition_years=2026"
 NADESHIKO_URLS = [
-    ("なでしこリーグ1部", "https://www.nadeshikoleague.jp/2026/info_nadeshiko1.html"),
-    ("なでしこリーグ2部", "https://www.nadeshikoleague.jp/2026/info_nadeshiko2.html"),
+    ("なでしこリーグ1部","https://www.nadeshikoleague.jp/2026/nadeshiko1/"),
+    ("なでしこリーグ2部","https://www.nadeshikoleague.jp/2026/nadeshiko2/"),
 ]
 
 TEAM_NAMES = {
@@ -94,7 +95,7 @@ def records_from_tables(url: str, league: str, we_mode: bool):
     response = requests.get(url, headers=HEADERS, timeout=30)
     response.raise_for_status()
     response.encoding = response.apparent_encoding or response.encoding
-    tables = pd.read_html(response.text)
+    tables = pd.read_html(StringIO(response.text))
     records = []
     for table in tables:
         cols = [text(c) for c in table.columns]
