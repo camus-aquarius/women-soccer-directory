@@ -111,7 +111,7 @@ def records_from_tables(url: str, league: str, we_mode: bool):
     scripts = re.findall(
     r'<script[^>]+src=["\']([^"\']+)',
     html,
-    flags=re.IGNORECASE
+    flags=re.IGNORECASE)
     
     response.encoding = response.apparent_encoding or response.encoding
     tables = pd.read_html(StringIO(response.text))
