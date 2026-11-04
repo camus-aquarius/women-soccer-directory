@@ -15,6 +15,9 @@ from io import StringIO
 import pandas as pd
 import requests
 
+import re
+from urllib.parse import urljoin
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "matches.json"
 JST = ZoneInfo("Asia/Tokyo")
@@ -94,11 +97,21 @@ def split_teams(value: str):
 def records_from_tables(url: str, league: str, we_mode: bool):
     response = requests.get(url, headers=HEADERS, timeout=30)
     response.raise_for_status()
+
+    # なでしこリーグのページはUTF-8として読み込む
+    response.encoding = "utf-8"
+    html = response.text
     
     print(f"DEBUG URL: {response.url}")
     print(f"DEBUG HTTP: {response.status_code}")
     print(f"DEBUG HTML length: {len(response.text)}")
     print(f"DEBUG HTML preview: {response.text[:1000]}")
+
+    # JavaScriptファイルの読み込み先を調べる
+    scripts = re.findall(
+    r'<script[^>]+src=["\']([^"\']+)',
+    html,
+    flags=re.IGNORECASE
     
     response.encoding = response.apparent_encoding or response.encoding
     tables = pd.read_html(StringIO(response.text))
