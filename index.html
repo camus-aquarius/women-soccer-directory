@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="WEリーグ・なでしこリーグ・日本代表を中心に、女子サッカー選手とチームの情報を探せる名鑑サイト。">
+  <meta name="theme-color" content="#173b2d">
+  <title>WOMEN'S FOOTBALL GUIDE | 女子サッカー選手名鑑</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Women's Football Guide ホーム">
+      <img class="brand-mark" src="images/main-symbol.png" alt="">
+      <span class="brand-name">WOMEN'S <strong>FOOTBALL GUIDE</strong></span>
+    </a>
+    <nav class="main-nav" aria-label="メインナビゲーション">
+      <a href="#directory">選手を探す</a>
+      <a href="#weekly-highlights">今週の注目情報</a>
+      <a href="#teams">チームを探す</a>
+      <a href="#about">このサイトについて</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> JAPAN WOMEN'S FOOTBALL</p>
+        <h1>女子サッカーの<br><em>「好き」</em>が見つかる。</h1>
+        <p class="hero-lead">選手のプロフィールからチームのことまで。<br class="desktop-only">女子サッカーをもっと身近に楽しむためのガイド。</p>
+        <div class="hero-actions">
+          <a class="button button-lime" href="#directory">選手名鑑を見る <span>↘</span></a>
+          <a class="text-link" href="#teams">チーム一覧へ <span>→</span></a>
+        </div>
+        <div class="hero-stat-row">
+          <div><strong>PLAYERS</strong><span>選手プロフィール</span></div>
+          <div><strong>CLUBS</strong><span>チーム図鑑</span></div>
+          <div><strong>STORIES</strong><span>選手のエピソード</span></div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="女子サッカーをイメージしたグラフィック">
+        <img class="main-symbol-art" src="images/main-symbol.png" alt="女子サッカーを象徴するサッカーボールと桜のシンボル">
+        <div class="visual-caption"><span>BEYOND THE GAME</span><span>01 — 2026</span></div>
+        <div class="visual-label">YOUR NEXT<br>FAVOURITE PLAYER.</div>
+      </div>
+    </section>
+
+    <section class="quick-section wrap">
+      <div class="quick-heading"><p class="eyebrow">EXPLORE</p><h2>知りたいところから、見つけよう。</h2></div>
+      <div class="quick-grid">
+        <a href="#directory" class="quick-card"><span class="quick-icon">01</span><span><strong>選手名鑑</strong><small>プロフィール・プレースタイル・エピソード</small></span><b>↗</b></a>
+        <a href="#teams" class="quick-card"><span class="quick-icon">02</span><span><strong>チーム図鑑</strong><small>WEリーグ・なでしこリーグのクラブ</small></span><b>↗</b></a>
+        <a href="#about" class="quick-card"><span class="quick-icon">03</span><span><strong>サイトについて</strong><small>情報の出典と写真利用ポリシー</small></span><b>↗</b></a>
+      </div>
+    </section>
+
+
+    <section class="weekly-section wrap" id="weekly-highlights">
+      <div class="section-top">
+        <div><p class="eyebrow">WEEKLY HIGHLIGHTS</p><h2>今週の注目情報</h2><p class="section-lead" id="weekly-date-range">今週の注目試合と、今月が誕生日の選手を紹介します。</p></div>
+      </div>
+      <div class="weekly-grid">
+        <section class="weekly-panel" aria-labelledby="weekly-matches-title">
+          <div class="weekly-panel-heading"><span class="weekly-kicker">MATCHES</span><h3 id="weekly-matches-title">今週の注目試合</h3></div>
+          <div id="weekly-matches" class="weekly-list" aria-live="polite"></div>
+          <p class="weekly-note">試合情報は掲載用データです。公開前にリーグ・クラブ公式情報で日時や会場を確認してください。</p>
+        </section>
+        <section class="weekly-panel" aria-labelledby="weekly-birthdays-title">
+          <div class="weekly-panel-heading"><span class="weekly-kicker">BIRTHDAYS</span><h3 id="weekly-birthdays-title">今月が誕生日の選手</h3></div>
+          <div id="weekly-birthdays" class="weekly-list" aria-live="polite"></div>
+          <p class="weekly-note">選手データに誕生日が登録されている場合に表示されます。</p>
+        </section>
+      </div>
+    </section>
+
+    <section class="directory-section" id="directory">
+      <div class="wrap">
+        <div class="section-top">
+          <div><p class="eyebrow">01 / PLAYER DIRECTORY</p><h2>選手名鑑</h2><p class="section-lead">気になる選手を検索して、プロフィールやストーリーをチェック。</p></div>
+          <div class="result-count"><strong id="player-count">0</strong><span> PLAYERS</span></div>
+        </div>
+        <div class="directory-toolbar">
+          <div class="search-box"><span aria-hidden="true">⌕</span><input id="player-search" type="search" placeholder="選手名・チーム名で検索" aria-label="選手名・チーム名で検索"></div>
+          <label class="select-wrap"><span>カテゴリー</span><select id="league-filter" aria-label="カテゴリーで絞り込む">
+            <option value="all">すべて</option>
+            <option value="WEリーグ">WEリーグ</option>
+            <option value="なでしこリーグ1部">なでしこリーグ1部</option>
+            <option value="なでしこリーグ2部">なでしこリーグ2部</option>
+            <option value="日本代表・海外">日本代表・海外</option>
+          </select></label>
+          <label class="select-wrap"><span>ポジション</span><select id="position-filter" aria-label="ポジションで絞り込む">
+            <option value="all">すべて</option><option value="GK">GK</option><option value="DF">DF</option><option value="MF">MF</option><option value="FW">FW</option>
+          </select></label>
+          <label class="select-wrap"><span>所属チーム</span><select id="player-team-filter" aria-label="所属チームで絞り込む">
+            <option value="all">すべてのチーム</option>
+          </select></label>
+        </div>
+        <div class="filter-chips" role="group" aria-label="カテゴリーのクイックフィルター">
+          <button class="chip active" data-league="all">すべて</button>
+          <button class="chip" data-league="WEリーグ">WEリーグ</button>
+          <button class="chip" data-league="なでしこリーグ1部">なでしこ1部</button>
+          <button class="chip" data-league="なでしこリーグ2部">なでしこ2部</button>
+          <button class="chip" data-league="日本代表・海外">日本代表・海外</button>
+        </div>
+        <div class="filter-chips position-chips" role="group" aria-label="ポジションのクイックフィルター">
+          <span class="filter-chip-label">ポジション：</span>
+          <button class="chip active" type="button" data-position="all">すべて</button>
+          <button class="chip" type="button" data-position="GK">GK</button>
+          <button class="chip" type="button" data-position="DF">DF</button>
+          <button class="chip" type="button" data-position="MF">MF</button>
+          <button class="chip" type="button" data-position="FW">FW</button>
+        </div>
+        <div id="player-grid" class="player-grid" aria-live="polite"></div>
+        <div id="empty-state" class="empty-state" hidden><span>⌕</span><h3>選手が見つかりませんでした</h3><p>検索語やカテゴリーを変更して、もう一度お試しください。</p><button class="button button-dark" id="reset-filters">条件をリセット</button></div>
+        <p class="data-disclaimer">掲載データはサイト構成を確認するためのサンプルを含みます。公開前に所属・ポジション・経歴を公式資料で確認してください。</p>
+      </div>
+    </section>
+
+    <section class="teams-section wrap" id="teams">
+      <div class="section-top">
+        <div><p class="eyebrow">02 / CLUB DIRECTORY</p><h2>チーム図鑑</h2><p class="section-lead">リーグからクラブを探して、公式サイトへ。</p></div>
+        <div class="team-count"><strong id="team-count">0</strong><span> CLUBS</span></div>
+      </div>
+      <div class="team-controls">
+        <div class="search-box"><span aria-hidden="true">⌕</span><input id="team-search" type="search" placeholder="チーム名で検索" aria-label="チーム名で検索"></div>
+        <div class="segmented" role="group" aria-label="リーグで絞り込む">
+          <button class="active" data-team-league="all">すべて</button>
+          <button data-team-league="WEリーグ">WEリーグ</button>
+          <button data-team-league="なでしこリーグ1部">なでしこ1部</button>
+          <button data-team-league="なでしこリーグ2部">なでしこ2部</button>
+        </div>
+      </div>
+      <div id="team-grid" class="team-grid" aria-live="polite"></div>
+      <p class="data-disclaimer">クラブ名は2026年シーズンの公式リーグ情報を参考にしています。参照先は各リーグ公式サイトです。</p>
+    </section>
+
+    <section class="feature-section">
+      <div class="feature-art"><img class="feature-symbol-art" src="images/main-symbol.png" alt="女子サッカー名鑑のシンボル"><div class="feature-stamp">PLAYERS<br>BEYOND<br>THE PITCH</div></div>
+      <div class="feature-copy"><p class="eyebrow">MORE THAN FOOTBALL</p><h2>数字だけでは伝わらない、<br>選手の歩みも紹介。</h2><p>サッカーを始めたきっかけ、成長の転機、海外挑戦、プレーの特徴。公式プロフィールや本人のインタビューをもとに、選手の魅力を短いストーリーで伝えます。</p><a class="button button-lime" href="#directory">選手を探す <span>↗</span></a></div>
+    </section>
+
+    <section class="about-section wrap" id="about">
+      <div class="section-top"><div><p class="eyebrow">03 / ABOUT & SOURCES</p><h2>このサイトについて</h2></div></div>
+      <div class="about-grid">
+        <article class="about-card"><span class="about-number">01</span><h3>情報の正確性</h3><p>所属・プロフィールはクラブやリーグ、JFAなどの公式情報を優先。移籍や登録情報は変更されるため、更新日と出典を管理します。</p></article>
+        <article class="about-card"><span class="about-number">02</span><h3>エピソードの編集</h3><p>Wikipediaなどを調査の入口にしつつ、独自の文章で要約します。重要な事実は公式資料や本人インタビューなどで確認します。</p></article>
+        <article class="about-card"><span class="about-number">03</span><h3>写真・著作権</h3><p>写真は利用許諾やライセンスを確認できたものだけを掲載。写真ごとに著作者・出典・ライセンス・必要なクレジットを記録します。</p></article>
+      </div>
+      <div class="official-links">
+        <a href="https://weleague.jp/clubs/" target="_blank" rel="noopener noreferrer"><span>OFFICIAL SOURCE</span><strong>WEリーグ公式・クラブ一覧</strong><b>↗</b></a>
+        <a href="https://www.nadeshikoleague.jp/club/" target="_blank" rel="noopener noreferrer"><span>OFFICIAL SOURCE</span><strong>なでしこリーグ公式・チーム一覧</strong><b>↗</b></a>
+        <a href="https://www.jfa.jp/nadeshikojapan/" target="_blank" rel="noopener noreferrer"><span>OFFICIAL SOURCE</span><strong>日本サッカー協会・なでしこジャパン</strong><b>↗</b></a>
+      </div>
+      <p class="license-footnote">Wikipediaの文章を直接再利用する場合は、対象ページのライセンスと帰属表示・継承条件などを確認してください。写真の権利は文章とは別に確認が必要です。本サイトのサンプルデータは公開用の最終データではありません。</p>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="brand footer-brand" href="#"><img class="brand-mark" src="main-symbol.png" alt=""><span class="brand-name">WOMEN'S <strong>FOOTBALL GUIDE</strong></span></a><p>女子サッカーを、もっと身近に。</p><span class="copyright">© WOMEN'S FOOTBALL GUIDE</span></footer>
+
+  <dialog id="player-dialog" class="player-dialog" aria-labelledby="dialog-name">
+    <button class="dialog-close" id="dialog-close" aria-label="閉じる">×</button>
+    <div id="dialog-content"></div>
+  </dialog>
+</body>
+</html>

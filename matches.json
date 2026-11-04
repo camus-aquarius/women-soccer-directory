@@ -1,0 +1,19 @@
+{
+  "updatedAt": "2026-11-03T21:00:00+09:00",
+  "sourceStatus": {
+    "WEリーグ": "verified-seed",
+    "なでしこリーグ": "schedule-page-configured"
+  },
+  "sources": [
+    "https://data.weleague.jp/SFMS01/search?competition_frame_ids=70&competition_ids=734&competition_years=2026",
+    "https://www.nadeshikoleague.jp/2026/info_nadeshiko1.html",
+    "https://www.nadeshikoleague.jp/2026/info_nadeshiko2.html"
+  ],
+  "matches": [
+    {"id":"2026-11-07-mynavi-urawa","date":"2026-11-07","time":"14:00","league":"WEリーグ","home":"マイナビ仙台レディース","away":"三菱重工浦和レッズレディース","venue":"ユアテックスタジアム仙台","highlight":"仙台のホームでの戦い方と、浦和の連係した攻撃に注目です。","source":"https://data.weleague.jp/SFMS01/search?competition_frame_ids=70&competition_ids=734&competition_years=2026","origin":"auto"},
+    {"id":"2026-11-07-sagamihara-tokyo-verdy","date":"2026-11-07","time":"14:00","league":"WEリーグ","home":"ノジマステラ神奈川相模原","away":"日テレ・東京ヴェルディベレーザ","venue":"相模原ギオンスタジアム","highlight":"相模原の守備とベレーザのパスワークがぶつかる一戦です。","source":"https://data.weleague.jp/SFMS01/search?competition_frame_ids=70&competition_ids=734&competition_years=2026","origin":"auto"},
+    {"id":"2026-11-07-nagano-cerezo","date":"2026-11-07","time":"14:00","league":"WEリーグ","home":"AC長野パルセイロ・レディース","away":"セレッソ大阪ヤンマーレディース","venue":"長野Uスタジアム","highlight":"長野のホームでの守備と、C大阪の攻撃の組み立てに注目です。","source":"https://data.weleague.jp/SFMS01/search?competition_frame_ids=70&competition_ids=734&competition_years=2026","origin":"auto"},
+    {"id":"2026-11-08-chiba-omiya","date":"2026-11-08","time":"12:30","league":"WEリーグ","home":"ジェフ千葉レディース","away":"RB大宮アルディージャWOMEN","venue":"フクダ電子アリーナ","highlight":"ホームの千葉と大宮の攻守の切り替えに注目です。","source":"https://data.weleague.jp/SFMS01/search?competition_frame_ids=70&competition_ids=734&competition_years=2026","origin":"auto"},
+    {"id":"2026-11-08-elfen-hiroshima","date":"2026-11-08","time":"13:00","league":"WEリーグ","home":"ちふれASエルフェン埼玉","away":"サンフレッチェ広島レジーナ","venue":"多摩陸上競技場","highlight":"中盤の主導権争いと、決定機を作るサイド攻撃に注目です。","source":"https://data.weleague.jp/SFMS01/search?competition_frame_ids=70&competition_ids=734&competition_years=2026","origin":"auto"}
+  ]
+}
