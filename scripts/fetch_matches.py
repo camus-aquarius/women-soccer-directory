@@ -173,6 +173,33 @@ def records_from_tables(url: str, league: str, we_mode: bool):
             "match", "schedule", ".json",
             ".html", "nadeshiko1", "nadeshiko2"
         ):
+
+        # JSONファイルの保存場所を調査
+        for keyword in (
+            "getJSONURL",
+            "prop.json",
+            "json.domain",
+            "json.file",
+            "competition:",
+            "match:"
+        ):
+            hits = list(re.finditer(
+                re.escape(keyword),
+                js,
+                flags=re.IGNORECASE
+            ))
+
+            print(f"DEBUG JSON CONFIG {keyword}: {len(hits)}")
+
+            for hit in hits[:5]:
+                snippet = js[
+                    max(0, hit.start() - 400):
+                    hit.start() + 800
+                ]
+                print(
+                    "  ",
+                    re.sub(r"\s+", " ", snippet)
+                )
             hits = list(re.finditer(
                 re.escape(keyword),
                 js,
