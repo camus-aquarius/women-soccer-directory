@@ -70,8 +70,39 @@ const nationalTeamRoster = [
  {id:"u17-rara-higuchi",name:"樋口 らら",reading:"ひぐち らら",roman:"RARA HIGUCHI",position:"FW",league:"U-17日本女子代表",team:"マイナビ仙台レディースユース",tag:"フォワード",description:"マイナビ仙台レディースユース所属のU-17日本女子代表FW。",story:"FIFA U-17女子ワールドカップ モロッコ2026の招集メンバー。前線での動き出しやゴールに向かうプレーに注目したい選手。",source:"https://www.jfa.jp/national_team/u17w_2026/u17_womensworldcup2026/member.html",sourceLabel:"JFA公式・U-17女子W杯招集メンバー"}
 ];
 
+
+
+// 2026/27 ジェフユナイテッド市原・千葉レディース公式発表の選手データ
+// 生年月日・ポジション・背番号はクラブ公式の新体制発表を参照。
+const additionalVerifiedPlayers = [
+ {id:"jef-shimizu-miku",name:"清水 美紅",position:"GK",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"1",birthday:"2002年8月27日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-adachi-azusa",name:"足立 梓",position:"DF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"2",birthday:"2007年11月1日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-ishida-nanami",name:"石田 菜々海",position:"DF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"3",birthday:"1998年9月8日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-hayashi-kanae",name:"林 香奈絵",position:"DF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"4",birthday:"1994年2月27日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-tanaka-mariko",name:"田中 真理子",position:"DF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"5",birthday:"1993年1月10日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-hasuwawa-makoto",name:"蓮輪 真琴",position:"DF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"6",birthday:"1999年4月6日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-kimura-ayana",name:"木村 彩那",position:"MF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"7",birthday:"2003年12月17日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-kobayashi-hinata",name:"小林 ひなた",position:"MF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"8",birthday:"2001年2月13日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-inoue-ayaka",name:"井上 綾香",position:"FW",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"9",birthday:"1995年1月15日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-ogawa-yuki",name:"小川 由姫",position:"FW",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"10",birthday:"2004年11月4日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-nezu-ririna",name:"根津 里莉日",position:"FW",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"11",birthday:"2007年7月10日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"runa-sumiya",name:"角谷 瑠菜",position:"MF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"13",birthday:"2009年5月9日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-uemoto-manami",name:"植本 愛実",position:"MF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"14",birthday:"2006年6月30日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-hirai-kyoko",name:"平井 杏幸",position:"FW",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"15",birthday:"2001年5月15日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"chihiro-yamaguchi",name:"山口 千尋",position:"MF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"17",birthday:"1996年6月10日",height:"158cm",birthplace:"長崎県",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-inayama-miyu",name:"稲山 美優",position:"MF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"18",birthday:"2003年8月6日",source:"https://jefunited.co.jp/news/detail/5201",sourceLabel:"ジェフユナイテッド市原・千葉公式・契約更新情報"},
+ {id:"jef-masano-runa",name:"正野 瑠菜",position:"FW",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"20",birthday:"2004年4月22日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-masuda-sakura",name:"増田 咲良",position:"MF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"25",birthday:"2005年5月31日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-asakura-haruna",name:"朝倉 陽菜",position:"DF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"27",birthday:"2002年9月26日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-adachi-kaede",name:"足立 楓",position:"GK",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"30",birthday:"2007年11月1日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-kisaki-ami",name:"木崎 あみ",position:"GK",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"33",birthday:"2002年10月20日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-kobayashi-ririko",name:"小林 莉々子",position:"FW",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"50",birthday:"2003年2月1日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-kitazawa-ami",name:"北沢 明未",position:"FW",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"84",birthday:"2004年1月12日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"},
+ {id:"jef-suzuki-sumire",name:"鈴木 菫",position:"DF",league:"WEリーグ",team:"ジェフユナイテッド市原・千葉レディース",number:"99",birthday:"2004年1月24日",source:"https://jefunited.co.jp/news/detail/5242",sourceLabel:"ジェフユナイテッド市原・千葉公式・2026/27新体制"}
+];
+
 // 既存カードがある選手は情報を更新し、未登録の招集選手はカードを追加します。
-for (const rosterPlayer of nationalTeamRoster) {
+for (const rosterPlayer of [...nationalTeamRoster, ...additionalVerifiedPlayers]) {
  const existing = players.find(p => (p.name || "").replace(/[ 　]/g, "") === rosterPlayer.name.replace(/[ 　]/g, ""));
  if (existing) Object.assign(existing, rosterPlayer, {story: existing.story || rosterPlayer.story});
  else players.push(rosterPlayer);
