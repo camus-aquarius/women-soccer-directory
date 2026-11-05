@@ -149,6 +149,44 @@ def records_from_tables(url: str, league: str, we_mode: bool):
                     html[max(0, hit.start() - 100):hit.start() + 200]
                 )
                 print("  ", snippet)
+        
+        # 日程表示用JavaScriptの中身を調査
+        js_url = urljoin(
+            response.url,
+            "/system/js/nadeshiko_core_2026.js?_=20260324"
+        )
+
+        js_response = requests.get(
+            js_url,
+            headers=HEADERS,
+            timeout=30
+        )
+        js_response.raise_for_status()
+        js = js_response.text
+
+        print(f"DEBUG CORE JS URL: {js_response.url}")
+        print(f"DEBUG CORE JS HTTP: {js_response.status_code}")
+        print(f"DEBUG CORE JS LENGTH: {len(js)}")
+
+        for keyword in (
+            "ajax", "fetch(", "XMLHttpRequest",
+            "match", "schedule", ".json",
+            ".html", "nadeshiko1", "nadeshiko2"
+        ):
+            hits = list(re.finditer(
+                re.escape(keyword),
+                js,
+                flags=re.IGNORECASE
+            ))
+
+            print(f"DEBUG CORE JS {keyword}: {len(hits)}")
+
+            for hit in hits[:2]:
+                snippet = re.sub(
+                    r"\s+", " ",
+                    js[max(0, hit.start() - 150):hit.start() + 300]
+                )
+                print("  ", snippet)
 
     tables = pd.read_html(StringIO(response.text))
 
