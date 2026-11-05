@@ -1539,3 +1539,7 @@ h1 em {
 .birthday-note { margin:14px 0 0; color:var(--muted,#65738c); font-size:10px; line-height:1.7; }
 @media(max-width:900px) { .birthday-layout { grid-template-columns:minmax(0,1fr); } }
 @media(max-width:620px) { .birthday-section { padding-top:48px; padding-bottom:54px; } .birthday-section-top { align-items:flex-start; flex-direction:column; gap:14px; } .birthday-month-select { width:100%; } .birthday-month-select select { width:100%; } .birthday-month-panel,.birthday-upcoming-panel { padding:17px; } .birthday-list { grid-template-columns:minmax(0,1fr); } .birthday-card { gap:10px; padding:11px; } .birthday-profile-button { padding:7px; font-size:9px; } }
+
+
+/* 選手データの網羅性に関する案内 */
+.team-data-caveat{margin:0 0 1rem;padding:.8rem 1rem;border-left:4px solid #d99b35;background:#fff5df;color:#5c4828;border-radius:.35rem;font-size:.9rem;line-height:1.7}

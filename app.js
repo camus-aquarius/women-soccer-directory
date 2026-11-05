@@ -1,16 +1,16 @@
 const players = [
  {id:"yui-hasegawa",image:"images/hasegawa.png",name:"長谷川 唯",reading:"はせがわ ゆい",roman:"YUI HASEGAWA",position:"MF",league:"日本代表・海外",team:"マンチェスター・シティ",tag:"ゲームメイク",description:"正確なパスと判断力で試合を組み立てるミッドフィールダー。",story:"日テレ・ベレーザの育成組織で成長し、国内で経験を積んだ後、海外クラブでプレー。視野の広さと判断力を武器に、世界の舞台で進化を続ける。",source:"https://www.mancity.com/players/yui-hasegawa",sourceLabel:"マンチェスター・シティ公式プロフィール"},
  {id:"hana-takahashi",image:"images/takahashi-hana.png",name:"高橋 はな",reading:"たかはし はな",roman:"HANA TAKAHASHI",position:"DF",league:"WEリーグ",team:"三菱重工浦和レッズレディース",tag:"守備の要",description:"対人守備や空中戦など、最終ラインでの働きに注目。",story:"守備の局面でチームを支えるディフェンダー。代表活動やクラブでの経験など、プレーの歩みは公式プロフィール・インタビューで確認して紹介する。",source:"https://weleague.jp/",sourceLabel:"WEリーグ公式サイト"},
- {id:"yone-nishio",image:"images/nishio-hanon.png",name:"西尾 葉音",reading:"にしお はのん",roman:"HANON NISHIO",position:"FW",league:"WEリーグ",team:"RB大宮アルディージャWOMEN",tag:"アタッカー",description:"前線での動きや攻撃参加に注目したい選手。",story:"攻撃の局面でチームに勢いをもたらすアタッカー。経歴やプレーの特徴は、所属クラブの公式情報を確認したうえで更新する。",source:"https://weleague.jp/clubs/",sourceLabel:"WEリーグ公式・クラブ一覧"},
- {id:"yuki-seno",image:"images/seno-yuki.png",name:"瀬野 有希",reading:"せの ゆき",roman:"YUKI SENO",position:"MF",league:"WEリーグ",team:"ちふれASエルフェン埼玉",tag:"ミッドフィールダー",description:"中盤での展開力や連係に注目。",story:"中盤でチームの攻守をつなぐ選手。具体的なエピソードは、本人インタビューやクラブ発信の情報をもとに追加する。",source:"https://weleague.jp/clubs/",sourceLabel:"WEリーグ公式・クラブ一覧"},
- {id:"chihiro-yamaguchi",name:"山口 千尋",reading:"やまぐち ちひろ",roman:"CHIHIRO YAMAGUCHI",position:"MF",league:"WEリーグ",team:"ジェフ千葉レディース",tag:"中盤",description:"中盤でのプレーと成長の歩みを紹介。",story:"チームの中盤を担うプレーヤー。プロフィールの詳細やこれまでの歩みは、クラブ公式情報で確認してから掲載する。",source:"https://weleague.jp/clubs/",sourceLabel:"WEリーグ公式・クラブ一覧"},
- {id:"miharu-mashiro",image:"images/shinjo-miharu.png",name:"眞城 美春",reading:"ましろ みはる",roman:"MIHARU MASHIRO",position:"MF",league:"WEリーグ",team:"日テレ・東京ヴェルディベレーザ",tag:"若手注目株",description:"これからの成長にも注目したいミッドフィールダー。",story:"次世代の女子サッカーを担う選手の一人として注目。年齢や経歴などの情報は更新頻度が高いため、公式プロフィールで確認して掲載する。",source:"https://weleague.jp/clubs/",sourceLabel:"WEリーグ公式・クラブ一覧"},
- {id:"ai-sasai",name:"笹井 一愛",reading:"ささい ちなり",roman:"CHINARI SASAI",position:"FW",league:"WEリーグ",team:"ノジマステラ神奈川相模原",tag:"フォワード",description:"攻撃での持ち味や得点への関わりに注目。",story:"前線でのプレーに注目したいフォワード。具体的なエピソードは公式インタビューやクラブ発信の情報から確認し、随時追加する。",source:"https://weleague.jp/clubs/",sourceLabel:"WEリーグ公式・クラブ一覧"},
- {id:"sayaka-mitani",name:"三谷 沙也加",reading:"みたに さやか",roman:"SAYAKA MITANI",position:"MF",league:"WEリーグ",team:"AC長野パルセイロ・レディース",tag:"チャンスメイク",description:"地域クラブでの活躍とプレーの特徴を紹介。",story:"クラブでの経験を積み重ねてきたプレーヤー。プロフィールやエピソードは公式資料と照合して編集する。",source:"https://weleague.jp/clubs/",sourceLabel:"WEリーグ公式・クラブ一覧"},
- {id:"naomi-kawasumi",name:"川澄 奈穂美",reading:"かわすみ なほみ",roman:"NAOMI KAWASUMI",position:"FW",league:"WEリーグ",team:"アルビレックス新潟レディース",tag:"経験豊富",description:"豊富な経験を持つアタッカー。",story:"国内外での経験を重ねてきた選手。キャリアの節目や本人の言葉を紹介する際は、公式インタビューなどの一次資料を出典として付ける。",source:"https://weleague.jp/clubs/",sourceLabel:"WEリーグ公式・クラブ一覧"},
- {id:"natsumi-tago",name:"田子 夏海",reading:"たご なつみ",roman:"NATSUMI TAGO",position:"FW",league:"WEリーグ",team:"セレッソ大阪ヤンマーレディース",tag:"アタッカー",description:"攻撃面でのプレーや成長の過程に注目。",story:"前線での活躍に注目したい選手。所属やプロフィールの最新情報はクラブ公式ページで確認してから掲載する。",source:"https://weleague.jp/clubs/",sourceLabel:"WEリーグ公式・クラブ一覧"},
- {id:"yui-narumiya",name:"成宮 唯",reading:"なるみや ゆい",roman:"YUI NARUMIYA",position:"MF",league:"WEリーグ",team:"INAC神戸レオネッサ",tag:"攻撃的MF",description:"創造性のあるプレーや攻撃参加に注目。",story:"攻撃の組み立てやチャンスメイクで注目される選手。プレーの特徴やキャリアを紹介する際は、クラブ公式情報を確認して記載する。",source:"https://weleague.jp/clubs/",sourceLabel:"WEリーグ公式・クラブ一覧"},
- {id:"yoshino-nakashima",image:"images/nakajima-yoshino.png",name:"中嶋 淑乃",reading:"なかしま よしの",roman:"YOSHINO NAKASHIMA",position:"FW",league:"WEリーグ",team:"サンフレッチェ広島レジーナ",tag:"スピード",description:"スピードを生かした攻撃参加に注目。",story:"攻撃の局面で持ち味を発揮するアタッカー。代表歴などの具体的な情報はJFAやクラブの公式プロフィールを出典として確認する。",source:"https://weleague.jp/clubs/",sourceLabel:"WEリーグ公式・クラブ一覧"},
+ {id:"yone-nishio",image:"images/nishio-hanon.png",name:"西尾 葉音",reading:"にしお はのん",roman:"HANON NISHIO",position:"FW",league:"WEリーグ",team:"RB大宮アルディージャWOMEN",tag:"アタッカー",description:"前線での動きや攻撃参加に注目したい選手。",story:"攻撃の局面でチームに勢いをもたらすアタッカー。経歴やプレーの特徴は、所属クラブの公式情報を確認したうえで更新する。",source:"https://data.weleague.jp/SFIX03/",sourceLabel:"WEリーグ公式・クラブ一覧"},
+ {id:"yuki-seno",image:"images/seno-yuki.png",name:"瀬野 有希",reading:"せの ゆき",roman:"YUKI SENO",position:"MF",league:"WEリーグ",team:"ちふれASエルフェン埼玉",tag:"ミッドフィールダー",description:"中盤での展開力や連係に注目。",story:"中盤でチームの攻守をつなぐ選手。具体的なエピソードは、本人インタビューやクラブ発信の情報をもとに追加する。",source:"https://data.weleague.jp/SFIX03/",sourceLabel:"WEリーグ公式・クラブ一覧"},
+ {id:"chihiro-yamaguchi",name:"山口 千尋",reading:"やまぐち ちひろ",roman:"CHIHIRO YAMAGUCHI",position:"MF",league:"WEリーグ",team:"ジェフ千葉レディース",tag:"中盤",description:"中盤でのプレーと成長の歩みを紹介。",story:"チームの中盤を担うプレーヤー。プロフィールの詳細やこれまでの歩みは、クラブ公式情報で確認してから掲載する。",source:"https://data.weleague.jp/SFIX03/",sourceLabel:"WEリーグ公式・クラブ一覧"},
+ {id:"miharu-mashiro",image:"images/shinjo-miharu.png",name:"眞城 美春",reading:"ましろ みはる",roman:"MIHARU MASHIRO",position:"MF",league:"WEリーグ",team:"日テレ・東京ヴェルディベレーザ",tag:"若手注目株",description:"これからの成長にも注目したいミッドフィールダー。",story:"次世代の女子サッカーを担う選手の一人として注目。年齢や経歴などの情報は更新頻度が高いため、公式プロフィールで確認して掲載する。",source:"https://data.weleague.jp/SFIX03/",sourceLabel:"WEリーグ公式・クラブ一覧"},
+ {id:"ai-sasai",name:"笹井 一愛",reading:"ささい ちなり",roman:"CHINARI SASAI",position:"FW",league:"WEリーグ",team:"ノジマステラ神奈川相模原",tag:"フォワード",description:"攻撃での持ち味や得点への関わりに注目。",story:"前線でのプレーに注目したいフォワード。具体的なエピソードは公式インタビューやクラブ発信の情報から確認し、随時追加する。",source:"https://data.weleague.jp/SFIX03/",sourceLabel:"WEリーグ公式・クラブ一覧"},
+ {id:"sayaka-mitani",name:"三谷 沙也加",reading:"みたに さやか",roman:"SAYAKA MITANI",position:"MF",league:"WEリーグ",team:"AC長野パルセイロ・レディース",tag:"チャンスメイク",description:"地域クラブでの活躍とプレーの特徴を紹介。",story:"クラブでの経験を積み重ねてきたプレーヤー。プロフィールやエピソードは公式資料と照合して編集する。",source:"https://data.weleague.jp/SFIX03/",sourceLabel:"WEリーグ公式・クラブ一覧"},
+ {id:"naomi-kawasumi",name:"川澄 奈穂美",reading:"かわすみ なほみ",roman:"NAOMI KAWASUMI",position:"FW",league:"WEリーグ",team:"アルビレックス新潟レディース",tag:"経験豊富",description:"豊富な経験を持つアタッカー。",story:"国内外での経験を重ねてきた選手。キャリアの節目や本人の言葉を紹介する際は、公式インタビューなどの一次資料を出典として付ける。",source:"https://data.weleague.jp/SFIX03/",sourceLabel:"WEリーグ公式・クラブ一覧"},
+ {id:"natsumi-tago",name:"田子 夏海",reading:"たご なつみ",roman:"NATSUMI TAGO",position:"FW",league:"WEリーグ",team:"セレッソ大阪ヤンマーレディース",tag:"アタッカー",description:"攻撃面でのプレーや成長の過程に注目。",story:"前線での活躍に注目したい選手。所属やプロフィールの最新情報はクラブ公式ページで確認してから掲載する。",source:"https://data.weleague.jp/SFIX03/",sourceLabel:"WEリーグ公式・クラブ一覧"},
+ {id:"yui-narumiya",name:"成宮 唯",reading:"なるみや ゆい",roman:"YUI NARUMIYA",position:"MF",league:"WEリーグ",team:"INAC神戸レオネッサ",tag:"攻撃的MF",description:"創造性のあるプレーや攻撃参加に注目。",story:"攻撃の組み立てやチャンスメイクで注目される選手。プレーの特徴やキャリアを紹介する際は、クラブ公式情報を確認して記載する。",source:"https://data.weleague.jp/SFIX03/",sourceLabel:"WEリーグ公式・クラブ一覧"},
+ {id:"yoshino-nakashima",image:"images/nakajima-yoshino.png",name:"中嶋 淑乃",reading:"なかしま よしの",roman:"YOSHINO NAKASHIMA",position:"FW",league:"WEリーグ",team:"サンフレッチェ広島レジーナ",tag:"スピード",description:"スピードを生かした攻撃参加に注目。",story:"攻撃の局面で持ち味を発揮するアタッカー。代表歴などの具体的な情報はJFAやクラブの公式プロフィールを出典として確認する。",source:"https://data.weleague.jp/SFIX03/",sourceLabel:"WEリーグ公式・クラブ一覧"},
  {id:"yukari-kinga",name:"近賀 ゆかり",reading:"きんが ゆかり",roman:"YUKARI KINGA",position:"DF",league:"なでしこリーグ1部",team:"サンプル登録・要確認",tag:"ディフェンダー",description:"経験豊かな選手の歩みを調べるためのサンプル枠。",story:"このカードはサイトの表示例です。現在の所属先や現役登録状況を確認し、公開前に正しいデータへ更新してください。",source:"https://www.nadeshikoleague.jp/club/",sourceLabel:"なでしこリーグ公式・チーム一覧"},
  {id: "momoko-tanikawa",name: "谷川 萌々子",reading: "たにかわ ももこ",roman: "MOMOKO TANIKAWA",position: "MF",league: "日本代表・海外",team: "FCバイエルン・ミュンヘン",tag: "ミッドフィールダー",description: "高い技術と攻撃センスを持つミッドフィールダー。",story: "日本代表でも活躍するミッドフィールダー。クラブでのプレーや代表活動を通じた成長に注目。所属や経歴の最新情報は、公式プロフィールを確認して掲載する。",source: "https://www.jfa.jp/",sourceLabel: "日本サッカー協会（JFA）公式サイト",birthday: "2005年5月7日",height: "168cm",birthplace: "愛知県名古屋市"},
  {id: "runa-sumiya",name: "角谷 瑠菜",reading: "すみや るな",roman: "RUNA SUMIYA",position: "MF",league: "WEリーグ",team: "ジェフユナイテッド市原・千葉レディース",tag: "ミッドフィールダー",description: "スピードとドリブルを武器とするミッドフィールダー。",story: "ジェフユナイテッド市原・千葉レディースでプレー。クラブ公式プロフィールでは、得意なプレーとしてドリブルが紹介されている。U-17日本女子代表にも選出された選手。",source: "https://jefunited.co.jp/teams/detail/8370",sourceLabel: "ジェフユナイテッド市原・千葉公式プロフィール",birthday: "2009年5月9日",height: "163cm",birthplace: "千葉県",number: "13",image: ""},
@@ -557,19 +557,19 @@ for (const rosterPlayer of [...nationalTeamRoster, ...additionalVerifiedPlayers]
 }
 
 const weTeams = [
- ["マイナビ仙台","WEリーグ","https://weleague.jp/clubs/"],["三菱重工浦和レッズレディース","WEリーグ","https://weleague.jp/clubs/"],
- ["RB大宮アルディージャWOMEN","WEリーグ","https://weleague.jp/clubs/"],["ちふれASエルフェン埼玉","WEリーグ","https://weleague.jp/clubs/"],
- ["ジェフ千葉レディース","WEリーグ","https://weleague.jp/clubs/"],["日テレ・東京ヴェルディベレーザ","WEリーグ","https://weleague.jp/clubs/"],
- ["ノジマステラ神奈川相模原","WEリーグ","https://weleague.jp/clubs/"],["AC長野パルセイロ・レディース","WEリーグ","https://weleague.jp/clubs/"],
- ["アルビレックス新潟レディース","WEリーグ","https://weleague.jp/clubs/"],["セレッソ大阪ヤンマーレディース","WEリーグ","https://weleague.jp/clubs/"],
- ["INAC神戸レオネッサ","WEリーグ","https://weleague.jp/clubs/"],["サンフレッチェ広島レジーナ","WEリーグ","https://weleague.jp/clubs/"]
+ ["マイナビ仙台","WEリーグ","https://data.weleague.jp/SFIX03/"],["三菱重工浦和レッズレディース","WEリーグ","https://data.weleague.jp/SFIX03/"],
+ ["RB大宮アルディージャWOMEN","WEリーグ","https://data.weleague.jp/SFIX03/"],["ちふれASエルフェン埼玉","WEリーグ","https://data.weleague.jp/SFIX03/"],
+ ["ジェフ千葉レディース","WEリーグ","https://data.weleague.jp/SFIX03/"],["日テレ・東京ヴェルディベレーザ","WEリーグ","https://data.weleague.jp/SFIX03/"],
+ ["ノジマステラ神奈川相模原","WEリーグ","https://data.weleague.jp/SFIX03/"],["AC長野パルセイロ・レディース","WEリーグ","https://data.weleague.jp/SFIX03/"],
+ ["アルビレックス新潟レディース","WEリーグ","https://data.weleague.jp/SFIX03/"],["セレッソ大阪ヤンマーレディース","WEリーグ","https://data.weleague.jp/SFIX03/"],
+ ["INAC神戸レオネッサ","WEリーグ","https://data.weleague.jp/SFIX03/"],["サンフレッチェ広島レジーナ","WEリーグ","https://data.weleague.jp/SFIX03/"]
 ];
 const nadeshiko1 = ["VONDS市原FCレディース","オルカ鴨川FC","スフィーダ世田谷FC","日体大SMG横浜","ニッパツ横浜FCシーガルズ","静岡SSUボニータ","朝日インテック・ラブリッジ名古屋","伊賀FCくノ一三重","ASハリマアルビオン","岡山湯郷Belle","愛媛FCレディース","ヴィアマテラス宮崎"];
 const nadeshiko2 = ["JFAアカデミー福島","バニーズ群馬FCホワイトスター","南葛SC WINGS","大和シルフィード","SEISA OSAレイア湘南FC","FCふじざくら山梨","ヴィアティン三重レディース","スペランツァ大阪","ディオッサ出雲FC","吉備国際大学Charme岡山高梁","ディアヴォロッソ広島","レノファ山口FCレディース"];
 const teams = [
  ...weTeams.map(x=>({name:x[0],league:x[1],url:x[2]})),
- ...nadeshiko1.map(name=>({name,league:"なでしこリーグ1部",url:"https://www.nadeshikoleague.jp/club/"})),
- ...nadeshiko2.map(name=>({name,league:"なでしこリーグ2部",url:"https://www.nadeshikoleague.jp/club/"}))
+ ...nadeshiko1.map(name=>({name,league:"なでしこリーグ1部",url:"https://nadeshikoleague.jp/club/"})),
+ ...nadeshiko2.map(name=>({name,league:"なでしこリーグ2部",url:"https://nadeshikoleague.jp/club/"}))
 ];
 const $ = s => document.querySelector(s);
 const playerGrid = $("#player-grid"), teamGrid = $("#team-grid");
@@ -710,10 +710,25 @@ function renderTeams(){
 }
 function openTeam(teamName){
  const team=teams.find(t=>t.name===teamName); if(!team)return;
- const roster=players.filter(p=>p.team===team.name);
+ const normalizeTeamName = value => (value || "").normalize("NFKC").replace(/[\s　・.･]/g, "").replace(/レディース/g, "レディース").toLowerCase();
+ const aliases = {
+  "ジェフ千葉レディース":["ジェフユナイテッド市原・千葉レディース","ジェフ千葉レディース","ジェフユナイテッド市原千葉レディース"],
+  "RB大宮アルディージャWOMEN":["RB大宮アルディージャWOMEN","ＲＢ大宮アルディージャＷＯＭＥＮ"],
+  "ちふれASエルフェン埼玉":["ちふれASエルフェン埼玉","ちふれＡＳエルフェン埼玉"],
+  "日テレ・東京ヴェルディベレーザ":["日テレ・東京ヴェルディベレーザ","日テレ・東京ヴェルディメニーナ"],
+  "AC長野パルセイロ・レディース":["AC長野パルセイロ・レディース","ＡＣ長野パルセイロ・レディース"],
+  "INAC神戸レオネッサ":["INAC神戸レオネッサ","ＩＮＡＣ神戸レオネッサ"],
+  "岡山湯郷Belle":["岡山湯郷Belle","岡山湯郷Ｂｅｌｌｅ"],
+  "ASハリマアルビオン":["ASハリマアルビオン","ＡＳハリマアルビオン"],
+  "南葛SC WINGS":["南葛SC WINGS","南葛ＳＣ ＷＩＮＧＳ"],
+  "VONDS市原FCレディース":["VONDS市原FCレディース","ＶＯＮＤＳ市原ＦＣレディース"],
+  "日体大SMG横浜":["日体大SMG横浜","日体大ＳＭＧ横浜"]
+ };
+ const acceptableTeamNames = new Set([team.name, ...(aliases[team.name] || [])].map(normalizeTeamName));
+ const roster=players.filter(p=>acceptableTeamNames.has(normalizeTeamName(p.team)));
  const rosterHtml=roster.length ? `<div class="team-roster">${roster.map(p=>`<button type="button" class="team-player-row" data-player="${escapeHtml(p.id)}"><span class="team-player-position">${escapeHtml(p.position)}</span><span class="team-player-copy"><strong>${escapeHtml(p.name)}</strong><small>${escapeHtml(p.tag||"")}</small></span><span class="team-player-arrow">プロフィール ↗</span></button>`).join("")}</div>` : '<p class="team-no-players">このチームに登録されている選手はまだありません。選手データの team 名をチーム図鑑のチーム名と一致させると、ここに表示されます。</p>';
  const dialog=ensureTeamDialog();
- $("#team-dialog-content").innerHTML=`<section class="team-detail"><p class="eyebrow">TEAM DIRECTORY</p><p class="team-detail-league">${escapeHtml(team.league)}</p><h2 id="team-dialog-title">${escapeHtml(team.name)}</h2><p class="team-detail-count">登録選手：${roster.length}人</p><h3>所属選手</h3>${rosterHtml}<a class="dialog-source team-official-link" href="${escapeHtml(team.url)}" target="_blank" rel="noopener noreferrer">公式サイト・チーム情報を見る ↗</a></section>`;
+ $("#team-dialog-content").innerHTML=`<section class="team-detail"><p class="eyebrow">TEAM DIRECTORY</p><p class="team-detail-league">${escapeHtml(team.league)}</p><h2 id="team-dialog-title">${escapeHtml(team.name)}</h2><p class="team-detail-count">サイト内登録選手：${roster.length}人</p><p class="team-data-caveat">この人数は本サイトに登録済みの選手数です。チームの全登録選手を網羅しているとは限りません。最新の所属選手は公式データでも確認してください。</p><h3>サイト内の所属選手</h3>${rosterHtml}<a class="dialog-source team-official-link" href="${escapeHtml(team.url)}" target="_blank" rel="noopener noreferrer">${team.league === "WEリーグ" ? "WEリーグ公式・選手データを確認" : "なでしこリーグ公式・チーム一覧を確認"} ↗</a></section>`;
  if(typeof dialog.showModal==="function")dialog.showModal(); else alert(`${team.name}：登録選手 ${roster.length}人`);
 }
 function openPlayer(id){
