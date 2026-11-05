@@ -67,7 +67,14 @@
       <div class="birthday-layout">
         <section class="birthday-month-panel" aria-labelledby="birthday-month-title">
           <div class="birthday-panel-heading"><span class="birthday-kicker">MONTHLY LIST</span><h3 id="birthday-month-title">誕生日カレンダー</h3></div>
-          <div id="birthday-list" class="birthday-list" aria-live="polite"></div>
+          <div class="birthday-calendar" aria-label="誕生日の月間カレンダー">
+            <div class="birthday-weekdays" aria-hidden="true"><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span><span>日</span></div>
+            <div id="birthday-calendar-grid" class="birthday-calendar-grid"></div>
+          </div>
+          <div class="birthday-day-detail">
+            <div class="birthday-day-heading"><h4 id="birthday-day-title">日付を選択してください</h4><span id="birthday-day-count"></span></div>
+            <div id="birthday-list" class="birthday-list" aria-live="polite"></div>
+          </div>
         </section>
         <aside class="birthday-upcoming-panel" aria-labelledby="birthday-upcoming-title">
           <div class="birthday-panel-heading"><span class="birthday-kicker">COMING UP</span><h3 id="birthday-upcoming-title">次に誕生日を迎える選手</h3></div>

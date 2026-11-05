@@ -759,20 +759,44 @@ function daysUntilBirthday(birthday, reference=new Date()){
  const next=nextBirthdayDate(birthday, today);
  return Math.round((next-today)/86400000);
 }
+let selectedBirthdayDay = null;
 function renderBirthdays(){
  const monthSelect=document.querySelector("#birthday-month-filter");
  const list=document.querySelector("#birthday-list");
  const upcoming=document.querySelector("#birthday-upcoming");
  const summary=document.querySelector("#birthday-summary");
- if(!monthSelect || !list || !upcoming || !summary) return;
+ const calendarGrid=document.querySelector("#birthday-calendar-grid");
+ const dayTitle=document.querySelector("#birthday-day-title");
+ const dayCount=document.querySelector("#birthday-day-count");
+ if(!monthSelect || !list || !upcoming || !summary || !calendarGrid) return;
  const now=new Date();
  if(monthSelect.dataset.initialized!=="true"){ monthSelect.value=String(now.getMonth()+1); monthSelect.dataset.initialized="true"; }
  const selectedMonth=Number(monthSelect.value) || now.getMonth()+1;
  const birthdayPlayers=players.map(player=>({player,birthday:parsePlayerBirthday(player.birthday)})).filter(item=>item.birthday);
  const monthPlayers=birthdayPlayers.filter(item=>item.birthday.month===selectedMonth).sort((a,b)=>a.birthday.day-b.birthday.day || a.player.name.localeCompare(b.player.name,"ja"));
  const monthLabel=`${selectedMonth}月`;
- summary.textContent=`${monthLabel}が誕生日の選手は ${monthPlayers.length}人 登録されています。`;
- list.innerHTML=monthPlayers.length ? monthPlayers.map(({player,birthday})=>{
+ summary.textContent=`${monthLabel}が誕生日の選手は ${monthPlayers.length}人 登録されています。日付を選ぶと、その日の選手だけを表示します。`;
+ const counts=new Map();
+ monthPlayers.forEach(item=>counts.set(item.birthday.day,(counts.get(item.birthday.day)||0)+1));
+ const year=now.getFullYear();
+ const daysInMonth=new Date(year,selectedMonth,0).getDate();
+ const firstWeekday=(new Date(year,selectedMonth-1,1).getDay()+6)%7;
+ if(!selectedBirthdayDay || !counts.has(selectedBirthdayDay) || selectedBirthdayDay>daysInMonth){
+   selectedBirthdayDay=counts.has(now.getDate()) && now.getMonth()+1===selectedMonth ? now.getDate() : (monthPlayers[0]?.birthday.day || 1);
+ }
+ let cells='';
+ for(let i=0;i<firstWeekday;i++) cells+='<span class="birthday-calendar-blank" aria-hidden="true"></span>';
+ for(let day=1;day<=daysInMonth;day++){
+   const count=counts.get(day)||0;
+   const isSelected=day===selectedBirthdayDay;
+   const isToday=now.getMonth()+1===selectedMonth && now.getDate()===day;
+   cells+=`<button type="button" class="birthday-calendar-day${count?' has-birthday':''}${isSelected?' selected':''}${isToday?' is-today':''}" data-birthday-day="${day}" aria-pressed="${isSelected?'true':'false'}" ${count?'':'disabled'}><span>${day}</span>${count?`<small>${count}人</small>`:'<i aria-hidden="true"></i>'}</button>`;
+ }
+ calendarGrid.innerHTML=cells;
+ const selectedPlayers=monthPlayers.filter(item=>item.birthday.day===selectedBirthdayDay);
+ if(dayTitle) dayTitle.textContent=`${selectedMonth}月${selectedBirthdayDay}日`;
+ if(dayCount) dayCount.textContent=`${selectedPlayers.length}人`;
+ list.innerHTML=selectedPlayers.length ? selectedPlayers.map(({player,birthday})=>{
    const days=daysUntilBirthday(birthday,now);
    const status=days===0?'<span class="birthday-status today">今日が誕生日！</span>':days<=7?`<span class="birthday-status soon">あと${days}日</span>`:'';
    return `<article class="birthday-card">
@@ -780,12 +804,13 @@ function renderBirthdays(){
      <div class="birthday-card-main"><p class="birthday-card-league">${escapeHtml(player.league || "女子サッカー")}</p><h3>${escapeHtml(player.name)}</h3><p class="birthday-card-team">${escapeHtml(player.team || "所属未登録")}</p>${status}</div>
      <button type="button" class="birthday-profile-button" data-player="${escapeHtml(player.id)}">プロフィールを見る ↗</button>
    </article>`;
- }).join("") : '<p class="birthday-empty">この月に誕生日を迎える選手は、まだ登録されていません。選手データに誕生日を追加すると、ここに表示されます。</p>';
+ }).join("") : '<p class="birthday-empty">この月に誕生日を迎える選手は、まだ登録されていません。</p>';
  const upcomingPlayers=birthdayPlayers.map(item=>({...item,days:daysUntilBirthday(item.birthday,now)})).sort((a,b)=>a.days-b.days || a.player.name.localeCompare(b.player.name,"ja")).slice(0,5);
  upcoming.innerHTML=upcomingPlayers.length ? upcomingPlayers.map(({player,birthday,days})=>`<button type="button" class="birthday-upcoming-item" data-player="${escapeHtml(player.id)}"><span class="birthday-upcoming-date">${birthday.month}/${birthday.day}</span><span class="birthday-upcoming-name">${escapeHtml(player.name)}<small>${escapeHtml(player.team || "所属未登録")}</small></span><strong>${days===0?"今日！":`あと${days}日`}</strong></button>`).join("") : '<p class="birthday-empty">誕生日データが登録されていません。</p>';
 }
 
 document.addEventListener("click",e=>{
+ const birthdayDay=e.target.closest("[data-birthday-day]"); if(birthdayDay && !birthdayDay.disabled){selectedBirthdayDay=Number(birthdayDay.dataset.birthdayDay);renderBirthdays();return;}
  const pbtn=e.target.closest("[data-player]"); if(pbtn){openPlayer(pbtn.dataset.player);return;}
  const teamCard=e.target.closest("[data-team-open]"); if(teamCard){openTeam(teamCard.dataset.teamOpen);return;}
  const fav=e.target.closest("[data-favorite]"); if(fav){e.preventDefault();e.stopPropagation();const id=fav.dataset.favorite;favorites.has(id)?favorites.delete(id):favorites.add(id);renderPlayers();}
