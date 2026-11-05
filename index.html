@@ -17,7 +17,7 @@
     </a>
     <nav class="main-nav" aria-label="メインナビゲーション">
       <a href="#directory">選手を探す</a>
-      <a href="#weekly-highlights">今週の注目情報</a>
+      <a href="#birthdays">選手の誕生日</a>
       <a href="#teams">チームを探す</a>
       <a href="#about">このサイトについて</a>
     </nav>
@@ -56,22 +56,25 @@
     </section>
 
 
-    <section class="weekly-section wrap" id="weekly-highlights">
-      <div class="section-top">
-        <div><p class="eyebrow">WEEKLY HIGHLIGHTS</p><h2>今週の注目情報</h2><p class="section-lead" id="weekly-date-range">今週の注目試合と、今月が誕生日の選手を紹介します。</p></div>
+    <section class="birthday-section wrap" id="birthdays">
+      <div class="section-top birthday-section-top">
+        <div><p class="eyebrow">PLAYER BIRTHDAYS</p><h2>選手の誕生日</h2><p class="section-lead">今月の誕生日と、これから誕生日を迎える選手をチェック。</p></div>
+        <label class="birthday-month-select"><span>表示する月</span><select id="birthday-month-filter" aria-label="誕生日を表示する月">
+          <option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11" selected>11月</option><option value="12">12月</option>
+        </select></label>
       </div>
-      <div class="weekly-grid">
-        <section class="weekly-panel" aria-labelledby="weekly-matches-title">
-          <div class="weekly-panel-heading"><span class="weekly-kicker">MATCHES</span><h3 id="weekly-matches-title">今週の注目試合</h3></div>
-          <div id="weekly-matches" class="weekly-list" aria-live="polite"></div>
-          <p class="weekly-note">試合情報は掲載用データです。公開前にリーグ・クラブ公式情報で日時や会場を確認してください。</p>
+      <p class="birthday-summary" id="birthday-summary" aria-live="polite"></p>
+      <div class="birthday-layout">
+        <section class="birthday-month-panel" aria-labelledby="birthday-month-title">
+          <div class="birthday-panel-heading"><span class="birthday-kicker">MONTHLY LIST</span><h3 id="birthday-month-title">誕生日カレンダー</h3></div>
+          <div id="birthday-list" class="birthday-list" aria-live="polite"></div>
         </section>
-        <section class="weekly-panel" aria-labelledby="weekly-birthdays-title">
-          <div class="weekly-panel-heading"><span class="weekly-kicker">BIRTHDAYS</span><h3 id="weekly-birthdays-title">今月が誕生日の選手</h3></div>
-          <div id="weekly-birthdays" class="weekly-list" aria-live="polite"></div>
-          <p class="weekly-note">選手データに誕生日が登録されている場合に表示されます。</p>
-        </section>
+        <aside class="birthday-upcoming-panel" aria-labelledby="birthday-upcoming-title">
+          <div class="birthday-panel-heading"><span class="birthday-kicker">COMING UP</span><h3 id="birthday-upcoming-title">次に誕生日を迎える選手</h3></div>
+          <div id="birthday-upcoming" class="birthday-upcoming-list" aria-live="polite"></div>
+        </aside>
       </div>
+      <p class="birthday-note">選手プロフィールに登録された誕生日をもとに表示しています。誕生日が未登録の選手は表示されません。</p>
     </section>
 
     <section class="directory-section" id="directory">

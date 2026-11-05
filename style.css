@@ -1501,3 +1501,41 @@ h1 em {
 .weekly-official-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .weekly-official-links a { display: inline-block; padding: 8px 11px; border: 1px solid #cbd7eb; border-radius: 7px; color: #174f9b; background: #f7f9fd; font-size: 11px; font-weight: 700; text-decoration: none; }
 .weekly-official-links a:hover { background: #edf2fb; border-color: #174f9b; }
+
+
+/* 選手の誕生日：月別カレンダーと次の誕生日 */
+.birthday-section { padding-top: 68px; padding-bottom: 76px; }
+.birthday-section-top { align-items: end; }
+.birthday-month-select { display:flex; flex-direction:column; gap:6px; min-width:130px; color:var(--muted,#65738c); font-size:11px; font-weight:700; }
+.birthday-month-select select { min-height:42px; padding:8px 34px 8px 12px; border:1px solid var(--line,#dfe6f2); border-radius:9px; background:#fff; color:var(--ink,#17233d); font:inherit; font-size:14px; }
+.birthday-summary { margin:0 0 16px; color:var(--muted,#65738c); font-size:13px; }
+.birthday-layout { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(260px,1fr); gap:18px; align-items:start; }
+.birthday-month-panel,.birthday-upcoming-panel { min-width:0; padding:24px; border:1px solid var(--line,#dfe6f2); border-radius:14px; background:#fff; }
+.birthday-panel-heading { margin-bottom:12px; }
+.birthday-kicker { color:#6f84aa; font-size:9px; font-weight:800; letter-spacing:.16em; }
+.birthday-panel-heading h3 { margin:4px 0 0; color:var(--ink,#17233d); font-size:19px; }
+.birthday-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.birthday-card { display:flex; align-items:center; gap:12px; min-width:0; padding:13px; border:1px solid #e5eaf2; border-radius:12px; background:#fbfcff; }
+.birthday-card-date { display:flex; flex:0 0 54px; flex-direction:column; align-items:center; justify-content:center; min-height:64px; border-radius:10px; background:#fff0f6; color:#a23c69; }
+.birthday-card-date span { font-size:10px; font-weight:700; }
+.birthday-card-date strong { font-size:24px; line-height:1.15; }
+.birthday-card-date small { font-size:8px; letter-spacing:.1em; }
+.birthday-card-main { flex:1; min-width:0; }
+.birthday-card-league { margin:0 0 3px; color:#71809a; font-size:9px; }
+.birthday-card-main h3 { margin:0; color:#1b2c49; font-size:14px; overflow-wrap:anywhere; }
+.birthday-card-team { margin:3px 0 0; color:#65738c; font-size:10px; line-height:1.5; overflow-wrap:anywhere; }
+.birthday-status { display:inline-block; margin-top:5px; padding:3px 7px; border-radius:20px; font-size:9px; font-weight:800; }
+.birthday-status.today { background:#ffe5ed; color:#a22b56; }
+.birthday-status.soon { background:#fff3d9; color:#8a5b08; }
+.birthday-profile-button { flex:none; align-self:center; padding:7px 9px; border:1px solid #cbd7eb; border-radius:8px; background:#fff; color:#174f9b; font:inherit; font-size:10px; font-weight:700; cursor:pointer; }
+.birthday-profile-button:hover,.birthday-upcoming-item:hover { border-color:#174f9b; background:#f4f8ff; }
+.birthday-upcoming-list { display:grid; }
+.birthday-upcoming-item { display:flex; align-items:center; gap:10px; width:100%; padding:12px 0; border:0; border-top:1px solid #edf1f8; background:transparent; color:var(--ink,#17233d); text-align:left; cursor:pointer; }
+.birthday-upcoming-date { flex:0 0 42px; color:#a23c69; font-size:13px; font-weight:800; }
+.birthday-upcoming-name { display:flex; flex:1; min-width:0; flex-direction:column; gap:3px; font-size:12px; font-weight:700; overflow-wrap:anywhere; }
+.birthday-upcoming-name small { color:#71809a; font-size:9px; font-weight:400; }
+.birthday-upcoming-item strong { flex:none; color:#174f9b; font-size:10px; }
+.birthday-empty { margin:0; padding:20px 12px; border-top:1px solid #edf1f8; color:#71809a; font-size:12px; line-height:1.8; }
+.birthday-note { margin:14px 0 0; color:var(--muted,#65738c); font-size:10px; line-height:1.7; }
+@media(max-width:900px) { .birthday-layout { grid-template-columns:minmax(0,1fr); } }
+@media(max-width:620px) { .birthday-section { padding-top:48px; padding-bottom:54px; } .birthday-section-top { align-items:flex-start; flex-direction:column; gap:14px; } .birthday-month-select { width:100%; } .birthday-month-select select { width:100%; } .birthday-month-panel,.birthday-upcoming-panel { padding:17px; } .birthday-list { grid-template-columns:minmax(0,1fr); } .birthday-card { gap:10px; padding:11px; } .birthday-profile-button { padding:7px; font-size:9px; } }

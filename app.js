@@ -245,155 +245,50 @@ function openPlayer(id){
  if(typeof dialog.showModal==="function")dialog.showModal(); else alert(p.name+"\n"+p.story);
 }
 
-// 今週の注目試合（公開前に公式日程で確認してください）
-let featuredMatches = [
- {date:"2026-11-07",time:"14:00",league:"WEリーグ",home:"マイナビ仙台レディース",away:"三菱重工浦和レッズレディース",venue:"ユアテックスタジアム仙台",highlight:"中盤でのボール奪取から素早く攻める仙台と、連係したパスワークで主導権を握りたい浦和。先制点とサイドの攻防が見どころです。",source:"https://weleague.jp/hajimetewe/"},
- {date:"2026-11-07",time:"14:00",league:"WEリーグ",home:"ノジマステラ神奈川相模原",away:"日テレ・東京ヴェルディベレーザ",venue:"相模原ギオンスタジアム",highlight:"相模原の粘り強い守備と、ベレーザのテンポのよいパスワークがぶつかる一戦。ボールを奪った後の切り替えと、ゴール前での判断に注目です。",source:"https://weleague.jp/hajimetewe/"},
- {date:"2026-11-07",time:"14:00",league:"WEリーグ",home:"AC長野パルセイロ・レディース",away:"セレッソ大阪ヤンマーレディース",venue:"長野Uスタジアム",highlight:"ホームの長野がサポーターの後押しを受けてどこまで前から圧力をかけるか、C大阪が落ち着いて攻撃を組み立てられるかがポイントです。",source:"https://www.cerezo.jp/ladies/matches/"}
-];
-// 試合データはGitHub Actionsが更新する matches.json を優先し、手動追加分だけブラウザに保存します。
-const MATCH_STORAGE_KEY = "womensFootballManualMatchesV2";
-const fallbackMatches = featuredMatches.slice();
-let automaticMatches = [];
-let matchesJsonLoaded = false;
-function getManualMatches(){
- try { const saved=JSON.parse(localStorage.getItem(MATCH_STORAGE_KEY)||"[]"); return Array.isArray(saved)?saved:[]; }
- catch(error){ console.warn("手動登録の試合データを読み込めませんでした",error); return []; }
+// 選手の誕生日表示：月別一覧と、直近の誕生日を表示します。
+function parsePlayerBirthday(value){
+ const match=String(value || "").match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+ if(!match) return null;
+ const year=Number(match[1]), month=Number(match[2]), day=Number(match[3]);
+ const date=new Date(year,month-1,day);
+ if(date.getFullYear()!==year || date.getMonth()!==month-1 || date.getDate()!==day) return null;
+ return {year,month,day};
 }
-function refreshFeaturedMatches(){
- const manual=getManualMatches();
- const merged=[...(matchesJsonLoaded ? automaticMatches : fallbackMatches)];
- for(const item of manual){ if(!merged.some(m=>m.date===item.date&&m.home===item.home&&m.away===item.away))merged.push(item); }
- featuredMatches=merged;
+function nextBirthdayDate(birthday, reference=new Date()){
+ const today=new Date(reference.getFullYear(),reference.getMonth(),reference.getDate());
+ let next=new Date(today.getFullYear(),birthday.month-1,birthday.day);
+ if(next<today) next=new Date(today.getFullYear()+1,birthday.month-1,birthday.day);
+ return next;
 }
-async function loadAutomaticMatches(){
- try {
-  const response=await fetch(`matches.json?v=${Date.now()}`,{cache:"no-store"});
-  if(!response.ok)throw new Error(`matches.json の取得に失敗しました (${response.status})`);
-  const data=await response.json();
-  if(!data||!Array.isArray(data.matches))throw new Error("matches.json の形式が正しくありません");
-  automaticMatches=data.matches.filter(m=>m&&/^\d{4}-\d{2}-\d{2}$/.test(m.date)&&typeof m.home==="string"&&typeof m.away==="string").map(m=>({...m,origin:"auto"}));
-  matchesJsonLoaded=true;
-  refreshFeaturedMatches(); renderWeeklyHighlights(); renderMatchManagerItems();
- } catch(error){ console.warn("自動取得した試合データを読み込めませんでした。現在のデータを表示します。",error); }
+function daysUntilBirthday(birthday, reference=new Date()){
+ const today=new Date(reference.getFullYear(),reference.getMonth(),reference.getDate());
+ const next=nextBirthdayDate(birthday, today);
+ return Math.round((next-today)/86400000);
 }
-const escapeMatchHTML = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
-function saveFeaturedMatches(){
- try { localStorage.setItem(MATCH_STORAGE_KEY, JSON.stringify(featuredMatches.filter(m=>m.origin!=="auto"))); return true; }
- catch (error) { alert("ブラウザに保存できませんでした。プライベートブラウズや保存容量をご確認ください。"); return false; }
-}
-function renderMatchManager(){
- const host = document.querySelector("#weekly-matches");
- if(!host || document.querySelector("#match-manager")) return;
- const panel=document.createElement("section"); panel.id="match-manager"; panel.className="match-manager";
- panel.innerHTML=`<button type="button" class="match-manager-toggle" id="match-manager-toggle" aria-expanded="false">⚙ 注目試合を管理する</button>
- <div class="match-manager-body" id="match-manager-body" hidden>
-  <p class="match-manager-note">公式日程から自動取得した試合は matches.json から読み込みます。ここで追加した試合だけ、このブラウザに保存されます。自動取得データはGitHub Actionsが1日1回更新します。</p>
-  <form id="match-manager-form" class="match-manager-form">
-   <label>試合日<input name="date" type="date" required></label>
-   <label>開始時刻<input name="time" type="time"></label>
-   <label>リーグ<select name="league"><option>WEリーグ</option><option>なでしこリーグ1部</option><option>なでしこリーグ2部</option><option>日本代表</option><option>その他</option></select></label>
-   <label>ホームチーム<input name="home" type="text" maxlength="80" required placeholder="例：AC長野パルセイロ・レディース"></label>
-   <label>アウェイチーム<input name="away" type="text" maxlength="80" required placeholder="例：対戦チーム名"></label>
-   <label>会場<input name="venue" type="text" maxlength="100" placeholder="会場未定の場合は空欄"></label>
-   <label class="match-manager-wide">見どころ<textarea name="highlight" rows="3" maxlength="500" placeholder="注目ポイントを入力"></textarea></label>
-   <label class="match-manager-wide">公式情報URL<input name="source" type="url" placeholder="https://..."></label>
-   <button type="submit" class="match-manager-submit">試合を登録する</button>
-  </form>
-  <div class="match-manager-list"><h4>登録済みの試合</h4><div id="match-manager-items"></div></div>
-  <div class="match-manager-tools"><button type="button" id="match-export">登録データを保存（JSON）</button><label class="match-import-label">JSONを読み込む<input type="file" id="match-import" accept="application/json,.json"></label></div>
- </div>`;
- host.insertAdjacentElement("afterend",panel);
- const toggle=panel.querySelector("#match-manager-toggle"), body=panel.querySelector("#match-manager-body");
- toggle.addEventListener("click",()=>{body.hidden=!body.hidden;toggle.setAttribute("aria-expanded",String(!body.hidden));});
- const form=panel.querySelector("#match-manager-form");
- form.addEventListener("submit",event=>{
-  event.preventDefault(); const data=Object.fromEntries(new FormData(form).entries());
-  if(data.source && !/^https?:\/\//i.test(data.source)){alert("公式情報URLは https:// または http:// から入力してください。");return;}
-  featuredMatches.push({date:data.date,time:data.time,league:data.league,home:data.home.trim(),away:data.away.trim(),venue:data.venue.trim(),highlight:data.highlight.trim(),source:data.source.trim()});
-  if(saveFeaturedMatches()){form.reset();renderMatchManagerItems();renderWeeklyHighlights();}
- });
- panel.querySelector("#match-manager-items").addEventListener("click",event=>{
-  const button=event.target.closest("[data-match-remove]"); if(!button)return;
-  const index=Number(button.dataset.matchRemove); if(!Number.isInteger(index)||index<0||index>=featuredMatches.length)return;
-  if(featuredMatches[index].origin==="auto"){alert("自動取得した試合は管理画面から削除できません。公式日程が更新されると自動的に反映されます。");return;}
-  if(!confirm("この手動登録の試合情報を削除しますか？"))return;
-  featuredMatches.splice(index,1); if(saveFeaturedMatches()){renderMatchManagerItems();renderWeeklyHighlights();}
- });
- panel.querySelector("#match-export").addEventListener("click",()=>{
-  const blob=new Blob([JSON.stringify({updatedAt:new Date().toISOString(),matches:featuredMatches},null,2)],{type:"application/json"});
-  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="featured-matches.json";a.click();URL.revokeObjectURL(url);
- });
- panel.querySelector("#match-import").addEventListener("change",async event=>{
-  const file=event.target.files?.[0]; if(!file)return;
-  try {
-   const parsed=JSON.parse(await file.text());
-   const rows=Array.isArray(parsed)?parsed:parsed.matches;
-   if(!Array.isArray(rows)||!rows.every(m=>m&&/^\d{4}-\d{2}-\d{2}$/.test(m.date)&&typeof m.home==="string"&&typeof m.away==="string"))throw new Error("形式が正しくありません");
-   if(!confirm(`${rows.length}件の試合データを手動登録分として読み込みますか？`))return;
-   localStorage.setItem(MATCH_STORAGE_KEY,JSON.stringify(rows.map(m=>({...m,origin:"manual"})))); refreshFeaturedMatches(); if(saveFeaturedMatches()){renderMatchManagerItems();renderWeeklyHighlights();}
-  } catch(error){alert("JSONを読み込めませんでした。エクスポートした注目試合データを選択してください。");}
-  finally{event.target.value="";}
- });
- renderMatchManagerItems();
-}
-function renderMatchManagerItems(){
- const target=document.querySelector("#match-manager-items"); if(!target)return;
- if(!featuredMatches.length){target.innerHTML='<p class="match-manager-empty">登録済みの試合はありません。</p>';return;}
- target.innerHTML=featuredMatches.map((m,i)=>`<div class="match-manager-row"><span><strong>${escapeMatchHTML(m.date)}</strong>　${escapeMatchHTML(m.home)} vs ${escapeMatchHTML(m.away)} <small>${m.origin==="auto"?"自動取得":"手動登録"}</small></span><button type="button" data-match-remove="${i}" ${m.origin==="auto"?"disabled title=\"自動取得データはここでは削除できません\"":""} aria-label="${escapeMatchHTML(m.home)}対${escapeMatchHTML(m.away)}を削除">削除</button></div>`).join("");
-}
-(function addMatchManagerStyles(){
- if(document.querySelector("#match-manager-styles"))return;
- const style=document.createElement("style");style.id="match-manager-styles";
- style.textContent=`.match-manager{margin-top:16px;padding:14px;border:1px solid #dbe4f1;border-radius:14px;background:#f8faff}.match-manager-toggle,.match-manager-tools button,.match-import-label{border:1px solid #cbd8eb;border-radius:9px;background:#fff;color:#174f9b;padding:9px 13px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}.match-manager-body{padding-top:14px}.match-manager-note,.match-manager-empty{font-size:12px;line-height:1.7;color:#68778e}.match-manager-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.match-manager-form label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:700;color:#314765}.match-manager-form input,.match-manager-form select,.match-manager-form textarea{box-sizing:border-box;width:100%;min-height:38px;padding:8px;border:1px solid #cbd8eb;border-radius:8px;background:#fff;color:#243b5b;font:inherit;font-size:13px}.match-manager-wide{grid-column:1/-1}.match-manager-submit{grid-column:1/-1;justify-self:start;border:0;border-radius:9px;background:#174f9b;color:#fff;padding:10px 16px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}.match-manager-list{margin-top:18px}.match-manager-list h4{margin:0 0 8px;color:#243b5b}.match-manager-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid #e1e8f2;font-size:12px;color:#314765}.match-manager-row button{flex:none;border:1px solid #e2b8b8;border-radius:7px;background:#fff;color:#a33;padding:5px 9px;cursor:pointer}.match-manager-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.match-import-label input{display:none}@media(max-width:560px){.match-manager-form{grid-template-columns:1fr}.match-manager-wide,.match-manager-submit{grid-column:auto}.match-manager-row{align-items:flex-start}.match-manager-row span{line-height:1.6}}`;
- document.head.appendChild(style);
-})();
-
-const pad2 = n => String(n).padStart(2,"0");
-const localDateKey = date => `${date.getFullYear()}-${pad2(date.getMonth()+1)}-${pad2(date.getDate())}`;
-function weekBounds(reference = new Date()){
- const start = new Date(reference.getFullYear(), reference.getMonth(), reference.getDate());
- const day = (start.getDay()+6)%7;
- start.setDate(start.getDate()-day);
- const end = new Date(start); end.setDate(start.getDate()+6);
- return {start,end};
-}
-function renderWeeklyHighlights(){
- const matchContainer = $("#weekly-matches");
- const birthdayContainer = $("#weekly-birthdays");
- if(!matchContainer || !birthdayContainer) return;
- const {start,end}=weekBounds();
- $("#weekly-date-range").textContent=`${start.getFullYear()}年${start.getMonth()+1}月${start.getDate()}日〜${end.getMonth()+1}月${end.getDate()}日`;
- const startKey=localDateKey(start), endKey=localDateKey(end);
- const matches=featuredMatches.filter(m=>m.date>=startKey && m.date<=endKey).sort((a,b)=>`${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`));
- matchContainer.innerHTML=matches.length ? matches.slice(0,3).map(m=>{
-   const d=new Date(`${m.date}T12:00:00`);
-   const leagueLabel=m.league || "女子サッカー";
-   return `<article class="weekly-item"><div class="weekly-item-date"><strong>${d.getMonth()+1}/${d.getDate()}</strong><span>${["日","月","火","水","木","金","土"][d.getDay()]}</span></div><div class="weekly-item-content"><p class="weekly-match-time">${m.time || "時間未定"}　${leagueLabel}</p><h4>${m.home}<span> vs </span>${m.away}</h4><p class="weekly-venue">${m.venue || "会場未定"}</p><p class="weekly-match-highlight"><strong>見どころ</strong>${m.highlight || "両チームの攻守の切り替えと、試合の流れを変えるプレーに注目です。"}</p></div></article>`;
- }).join("") : `
-   <div class="weekly-empty-state">
-     <p class="weekly-empty-title">今週の試合情報は、現在確認中です。</p>
-     <p>試合日程が登録されていないため、誤った日時を表示しないようにしています。最新の日程は各リーグの公式情報をご確認ください。</p>
-     <div class="weekly-official-links">
-       <a href="https://weleague.jp/" target="_blank" rel="noopener noreferrer">WEリーグ公式サイト ↗</a>
-       <a href="https://www.nadeshikoleague.jp/" target="_blank" rel="noopener noreferrer">なでしこリーグ公式サイト ↗</a>
-     </div>
-   </div>`;
- // 誕生日は「今月」を対象にし、注目試合の登録状況とは独立して表示する
- const birthdays=players.filter(p=>{
-   if(!p.birthday) return false;
-   const match=String(p.birthday).match(/(\d{1,2})年(\d{1,2})月(\d{1,2})日/);
-   return match && Number(match[2])===new Date().getMonth()+1;
- }).sort((a,b)=>{
-   const da=Number(String(a.birthday).match(/(\d{1,2})年(\d{1,2})月(\d{1,2})日/)[3]);
-   const db=Number(String(b.birthday).match(/(\d{1,2})年(\d{1,2})月(\d{1,2})日/)[3]);
-   return da-db || a.name.localeCompare(b.name,"ja");
- });
- birthdayContainer.innerHTML=birthdays.length ? birthdays.map(p=>{
-   const match=String(p.birthday).match(/(\d{1,2})年(\d{1,2})月(\d{1,2})日/);
-   return `<article class="weekly-item birthday-item"><div class="birthday-mark" aria-hidden="true">🎂</div><div class="weekly-item-content"><h4>${p.name}</h4><p>${Number(match[2])}月${Number(match[3])}日　${p.team}</p></div></article>`;
- }).join("") : '<p class="weekly-empty">今月が誕生日の選手は、誕生日データが登録されていません。</p>';
-
+function renderBirthdays(){
+ const monthSelect=document.querySelector("#birthday-month-filter");
+ const list=document.querySelector("#birthday-list");
+ const upcoming=document.querySelector("#birthday-upcoming");
+ const summary=document.querySelector("#birthday-summary");
+ if(!monthSelect || !list || !upcoming || !summary) return;
+ const now=new Date();
+ if(monthSelect.dataset.initialized!=="true"){ monthSelect.value=String(now.getMonth()+1); monthSelect.dataset.initialized="true"; }
+ const selectedMonth=Number(monthSelect.value) || now.getMonth()+1;
+ const birthdayPlayers=players.map(player=>({player,birthday:parsePlayerBirthday(player.birthday)})).filter(item=>item.birthday);
+ const monthPlayers=birthdayPlayers.filter(item=>item.birthday.month===selectedMonth).sort((a,b)=>a.birthday.day-b.birthday.day || a.player.name.localeCompare(b.player.name,"ja"));
+ const monthLabel=`${selectedMonth}月`;
+ summary.textContent=`${monthLabel}が誕生日の選手は ${monthPlayers.length}人 登録されています。`;
+ list.innerHTML=monthPlayers.length ? monthPlayers.map(({player,birthday})=>{
+   const days=daysUntilBirthday(birthday,now);
+   const status=days===0?'<span class="birthday-status today">今日が誕生日！</span>':days<=7?`<span class="birthday-status soon">あと${days}日</span>`:'';
+   return `<article class="birthday-card">
+     <div class="birthday-card-date"><span>${birthday.month}月</span><strong>${birthday.day}</strong><small>DAY</small></div>
+     <div class="birthday-card-main"><p class="birthday-card-league">${escapeHtml(player.league || "女子サッカー")}</p><h3>${escapeHtml(player.name)}</h3><p class="birthday-card-team">${escapeHtml(player.team || "所属未登録")}</p>${status}</div>
+     <button type="button" class="birthday-profile-button" data-player="${escapeHtml(player.id)}">プロフィールを見る ↗</button>
+   </article>`;
+ }).join("") : '<p class="birthday-empty">この月に誕生日を迎える選手は、まだ登録されていません。選手データに誕生日を追加すると、ここに表示されます。</p>';
+ const upcomingPlayers=birthdayPlayers.map(item=>({...item,days:daysUntilBirthday(item.birthday,now)})).sort((a,b)=>a.days-b.days || a.player.name.localeCompare(b.player.name,"ja")).slice(0,5);
+ upcoming.innerHTML=upcomingPlayers.length ? upcomingPlayers.map(({player,birthday,days})=>`<button type="button" class="birthday-upcoming-item" data-player="${escapeHtml(player.id)}"><span class="birthday-upcoming-date">${birthday.month}/${birthday.day}</span><span class="birthday-upcoming-name">${escapeHtml(player.name)}<small>${escapeHtml(player.team || "所属未登録")}</small></span><strong>${days===0?"今日！":`あと${days}日`}</strong></button>`).join("") : '<p class="birthday-empty">誕生日データが登録されていません。</p>';
 }
 
 document.addEventListener("click",e=>{
@@ -410,6 +305,7 @@ $("#league-filter").addEventListener("change",e=>{activeLeague=e.target.value;po
 $("#position-filter").addEventListener("change",()=>renderPlayers(true));
 $("#player-team-filter").addEventListener("change",()=>renderPlayers(true));
 $("#team-search").addEventListener("input",renderTeams);
+$("#birthday-month-filter")?.addEventListener("change",renderBirthdays);
 $("#reset-filters").addEventListener("click",()=>{$("#player-search").value="";$("#league-filter").value="all";$("#position-filter").value="all";$("#player-team-filter").value="all";activeLeague="all";populatePlayerTeamFilter();renderPlayers(true)});
 $("#dialog-close").addEventListener("click",()=>$("#player-dialog").close());
 $("#player-dialog").addEventListener("click",e=>{if(e.target===$("#player-dialog"))$("#player-dialog").close()});
@@ -428,4 +324,4 @@ $("#player-dialog").addEventListener("click",e=>{if(e.target===$("#player-dialog
  document.head.appendChild(style);
 })();
 
-populatePlayerTeamFilter();renderPlayers();renderTeams();refreshFeaturedMatches();renderWeeklyHighlights();renderMatchManager();loadAutomaticMatches();
+populatePlayerTeamFilter();renderPlayers();renderTeams();renderBirthdays();
