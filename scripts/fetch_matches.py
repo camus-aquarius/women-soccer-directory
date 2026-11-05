@@ -168,20 +168,20 @@ def records_from_tables(url: str, league: str, we_mode: bool):
         print(f"DEBUG CORE JS HTTP: {js_response.status_code}")
         print(f"DEBUG CORE JS LENGTH: {len(js)}")
 
-            hits = list(re.finditer(
-                re.escape(keyword),
-                js,
-                flags=re.IGNORECASE
-            ))
+        hits = list(re.finditer(
+            re.escape(keyword),
+            js,
+            flags=re.IGNORECASE
+        ))
 
-            print(f"DEBUG CORE JS {keyword}: {len(hits)}")
+        print(f"DEBUG CORE JS {keyword}: {len(hits)}")
 
-            for hit in hits[:2]:
-                snippet = re.sub(
+        for hit in hits[:2]:
+            snippet = re.sub(
                     r"\s+", " ",
                     js[max(0, hit.start() - 150):hit.start() + 300]
                 )
-                print("  ", snippet)
+        print("  ", snippet)
 
         # JSONファイルの保存場所を調査
         for keyword in (
@@ -192,23 +192,23 @@ def records_from_tables(url: str, league: str, we_mode: bool):
             "competition:",
             "match:"
         ):
-            hits = list(re.finditer(
-                re.escape(keyword),
-                js,
-                flags=re.IGNORECASE
-            ))
+        hits = list(re.finditer(
+            re.escape(keyword),
+            js,
+            flags=re.IGNORECASE
+        ))
 
-            print(f"DEBUG JSON CONFIG {keyword}: {len(hits)}")
+        print(f"DEBUG JSON CONFIG {keyword}: {len(hits)}")
 
-            for hit in hits[:5]:
-                snippet = js[
+        for hit in hits[:5]:
+            snippet = js[
                     max(0, hit.start() - 400):
                     hit.start() + 800
-                ]
-                print(
-                    "  ",
-                    re.sub(r"\s+", " ", snippet)
-                )
+            ]
+        print(
+            "  ",
+            re.sub(r"\s+", " ", snippet) 
+        )
 
     tables = pd.read_html(StringIO(response.text))
 
