@@ -168,11 +168,20 @@ def records_from_tables(url: str, league: str, we_mode: bool):
         print(f"DEBUG CORE JS HTTP: {js_response.status_code}")
         print(f"DEBUG CORE JS LENGTH: {len(js)}")
 
-        for keyword in (
-            "ajax", "fetch(", "XMLHttpRequest",
-            "match", "schedule", ".json",
-            ".html", "nadeshiko1", "nadeshiko2"
-        ):
+            hits = list(re.finditer(
+                re.escape(keyword),
+                js,
+                flags=re.IGNORECASE
+            ))
+
+            print(f"DEBUG CORE JS {keyword}: {len(hits)}")
+
+            for hit in hits[:2]:
+                snippet = re.sub(
+                    r"\s+", " ",
+                    js[max(0, hit.start() - 150):hit.start() + 300]
+                )
+                print("  ", snippet)
 
         # JSONファイルの保存場所を調査
         for keyword in (
@@ -200,20 +209,6 @@ def records_from_tables(url: str, league: str, we_mode: bool):
                     "  ",
                     re.sub(r"\s+", " ", snippet)
                 )
-            hits = list(re.finditer(
-                re.escape(keyword),
-                js,
-                flags=re.IGNORECASE
-            ))
-
-            print(f"DEBUG CORE JS {keyword}: {len(hits)}")
-
-            for hit in hits[:2]:
-                snippet = re.sub(
-                    r"\s+", " ",
-                    js[max(0, hit.start() - 150):hit.start() + 300]
-                )
-                print("  ", snippet)
 
     tables = pd.read_html(StringIO(response.text))
 
