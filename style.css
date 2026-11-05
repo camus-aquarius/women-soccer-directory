@@ -1718,3 +1718,46 @@ h1 em {
     scroll-margin-top: 112px;
   }
 }
+
+/* スマホ：固定ナビと重複するヒーロー内リンクを整理し、メインビジュアルを強調 */
+@media (max-width: 640px) {
+  /* 上部固定メニューに同じ移動先があるため、ヒーロー内のCTAはスマホでは非表示 */
+  .hero-actions { display: none; }
+
+  /* 文字情報を減らし、シンボルを主役にしたビジュアルへ */
+  .hero-visual {
+    position: relative;
+    min-height: 230px;
+    max-height: none;
+    padding: 18px 12px;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(242, 167, 198, .22), transparent 42%),
+      linear-gradient(145deg, #1455b8 0%, #0b347d 52%, #071b48 100%);
+  }
+
+  .hero-visual::after {
+    content: "";
+    position: absolute;
+    width: 68%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(255,255,255,.17);
+    border-radius: 50%;
+    box-shadow: 0 0 0 18px rgba(255,255,255,.025), 0 0 0 38px rgba(255,255,255,.02);
+    pointer-events: none;
+  }
+
+  .main-symbol-art {
+    width: min(76%, 250px);
+    max-height: 205px;
+    object-fit: contain;
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, .22));
+  }
+
+  .visual-caption,
+  .visual-label { display: none; }
+}
+
+@media (max-width: 380px) {
+  .hero-visual { min-height: 205px; }
+  .main-symbol-art { width: min(74%, 220px); max-height: 185px; }
+}
